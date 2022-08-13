@@ -1,0 +1,31 @@
+.ownerImg {
+    transition: var(--transition-md);
+    border: 2px solid var(--theme-primary);
+}
+.ownerImg:hover {
+    border-radius: 25% !important;
+}
+
+.overview-item {
+    width: 100%;
+    overflow: hidden;
+    background-color: #4f524f;
+    border-radius: 10px !important;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1), 
+                0 0 5px 1px rgba(0, 0, 0, 0.16),
+                0 0 5px 1px rgba(0, 0, 0, 0.2) !important;
+
+    transition: .1s linear;
+}
+.overview-item p.overviewItemLabel {
+    font-size: 24px;
+    color: white;
+}
+.overview-item p span, .overview-item-icon {
+    font-size: 18px;
+    transition: .1s linear;
+    color: lightgrey;
+}
+.overview-item:hover p span, .overview-item:hover .overview-item-icon {
+    color: white !important;
+}

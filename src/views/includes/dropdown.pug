@@ -1,0 +1,17 @@
+link(rel="stylesheet", href="/css/navbar.css")
+.float-right
+    if user
+        .dropdown
+            .dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', style={color: 'lightgray'})
+                img.user-avatar.round(src=user.avatarUrl(32), style='max-length: 32px; max-width: 32px;')
+                span.pl-2(style={color: 'lightgray'}) 
+                    span.pr-1 #{user.username}
+            .dropdown-menu.dropdown-menu-right.shadow-lg.rounded
+                a.dropdown-item(href='/dashboard') #[i.fas.fa-cogs] Dashboard
+                a.dropdown-item(href='/') #[i.fas.fa-home] Home
+                hr
+                a.dropdown-item.text-danger(href='/logout') #[i.fas.fa-user-slash.text-danger] Log out
+    else
+        a.navbar-login-link.nav-link(href='/login')
+            i.fas.fa-sign-in-alt.pl-2
+            span.pl-1 Login

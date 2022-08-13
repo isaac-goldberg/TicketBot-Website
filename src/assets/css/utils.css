@@ -1,0 +1,49 @@
+.round {
+    border-radius: 50% !important;
+}
+
+.shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 
+                0 1px 5px 0 rgba(0, 0, 0, 0.16),
+                0 2px 7.5px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.word-break {
+    overflow-wrap: break-word !important;
+    word-break: break-all !important;
+}
+
+.display-inline {
+    display: inline !important;
+}
+.display-flex {
+    display: flex !important;
+}
+.display-block {
+    display: block !important;
+}
+.break-word {
+    overflow-wrap: break-word !important;
+    word-break: break-all !important;
+}
+
+.fit-content {
+    width: fit-content;
+    height: fit-content;
+}
+.width-fit-content {
+    width: fit-content;
+}
+
+.no-outline {
+    outline: none !important;
+    border: none !important;
+}
+
+.align-items {
+    align-items: center !important;
+}

@@ -1,0 +1,25 @@
+doctype
+html(lang="en")
+    head
+        include ../includes/header.pug
+
+        link(rel='stylesheet', href='/css/sidebar.css')
+        script(rel='/js/sidebar.js', defer)
+    body
+        include ../includes/sidebar.pug
+
+        #sidebarExtension
+            header.text-center.pt-4
+                .large-icon.bg-transparent.round
+                    img.round(src=user.avatarUrl(128), alt=user.username)
+                h4.pt-2(style={color: 'lightgray'}) #{user.username}
+                    span.text-muted.fs-18 #{'#' + user.discriminator.toString().padStart(4, '0')}
+        
+        include ../includes/navbar.pug
+        
+        .container.jumbotron.text-center.bg-dark
+            h1.display-3(style={color: 'white'}) Dashboard
+            p.lead(style={color: 'lightgray'}) Manage your servers using the Bot Dashboard.
+                br
+                br
+                span.fs-1rem.text-center Get started by choosing a server on the sidebar to your left.

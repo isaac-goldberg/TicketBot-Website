@@ -1,0 +1,15 @@
+link(rel='stylesheet', href='/css/overview.css')
+section#overviewModule.module.container
+    .jumbotron.pb-0.bg-transparent(style={color: 'white'})
+        h1.display-4.text-center Overview
+        p.text-center #{guild.memberCount} Members
+    .form-group.mt-5
+        .row.text-center
+            .col-lg-4.col-md-4.d-flex.justify-content-center
+                .rounded.m-3.p-3.width-fit-content.overview-item
+                    p.uppercase(style={color: 'lightgray'})
+                        i.fas.fa-crown
+                        span.ml-1 Owner
+                    p.mb-0.word-break(style={color: 'white'}) #{owner.username}
+                        .text-muted ##{owner.discriminator}
+                    img.round.ownerImg(src=owner.displayAvatarURL({ dynamic: true, size: 64 }))

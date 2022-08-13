@@ -1,0 +1,11 @@
+:root {
+    --theme-primary: #CCC;
+
+    --transition-fast: 0.1s ease;
+    --transition-md: 0.15s ease;
+    --transition-slow: 0.2s ease;
+}
+
+p {
+    color: #ccc;
+}

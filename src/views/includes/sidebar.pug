@@ -1,0 +1,27 @@
+doctype
+html(lang='en')
+    head
+        link(rel="stylesheet", href="/css/sidebar.css")
+
+        script(src='js/sidebar.js', defer)
+    body
+        #sidebar.float-left
+            a(href='/dashboard')
+                .icon.round.shadow
+                    img.round(alt=user.username, src=user.avatarUrl(64))
+            hr.hr
+            each guild in guilds
+                a.no-text-decor(href='/servers/' + guild.id)
+                    if guild.icon
+                        .icon.round.shadow.my-2(data-toggle='tooltip', data-placement='right', title=guild.name)
+                            img.round(alt=guild.name, src=guild.iconURL({ dynamic: true, size: 64 }), id='guild')
+                    else        
+                        .icon.round.shadow.my-2.bg-secondary(data-toggle='tooltip', data-placement='right', title=guild.name)
+                            p.text-center.abbr.no-text-decor #{guild.nameAcronym}
+            hr.hr
+            a(href='/invite')
+                .icon.round.shadow.mt-2.bg-secondary(data-toggle='tooltip', data-placement='right', title="Add a server")
+                    p.text-center.abbr.no-text-decor.text-success
+                        i.fas.fa-plus
+            .hamburger
+                i.fas.fa-bars

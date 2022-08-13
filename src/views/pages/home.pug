@@ -1,0 +1,13 @@
+html(lang="en")
+    head
+        include ../includes/header.pug
+body
+    include ../includes/navbar.pug
+    .jumbotron.text-center.bg-dark
+        h1.display-3(style={color: 'white'}) TicketBot
+        p.lead(style={color: 'lightgray'}) The quickest and easiest ticketing system to set up and use in any Discord server.
+        a.btn.btn-success.mr-3(type="button", href='/invite') #[i.fas.fa-plus] Invite Bot
+        if user
+            a.btn.btn-success(type="button", href='/dashboard') #[i.fas.fa-cogs] Manage Servers
+        else
+            a.btn.btn-primary(type='button', href='/login') #[i.fas.fa-sign-in-alt] Login to the Dashboard

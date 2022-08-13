@@ -1,0 +1,91 @@
+.navbar-brand, .nav-link {
+    user-select: none;
+}
+
+.navbar-login-link {
+    line-height: 40px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: var(--transition-md);
+}
+.navbar-login-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.dropdown-menu {
+    border-radius: 10px !important;
+    padding: 10px 10px;
+    color: #ccc;
+    background-color: #333;
+    display: block !important;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+    transition: var(--transition-fast);
+}
+.dropdown-menu:not(.show) {
+    pointer-events: none;
+}
+.dropdown-menu.show {
+    opacity: 1;
+    transform: none !important;
+}
+
+.dropdown-toggle {
+    padding: 10px;
+    transition: var(--transition-md);
+    border: 2px solid transparent;
+    border-radius: 25px;
+}
+
+.dropdown-toggle img {
+    user-select: none;
+    transition: var(--transition-md);
+}
+
+.dropdown-toggle:hover, .dropdown-toggle[aria-expanded="true"] {
+    border: 2px solid var(--theme-primary);
+    background-color: #2b3036;
+}
+
+.dropdown-toggle:active {
+    background-color: #1f2226;
+}
+
+.dropdown-toggle span, .dropdown-toggle::after {
+    user-select: none;
+    color: lightgrey;
+    transition: .1s linear;
+}
+
+.dropdown-toggle:hover span, .dropdown-toggle:hover::after, .dropdown-toggle[aria-expanded="true"] span, .dropdown-toggle[aria-expanded="true"]::after {
+    color: white;
+}
+
+.dropdown-header {
+    user-select: none;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.dropdown-item {
+    transition: var(--transition-md) !important;
+    user-select: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #ccc;
+    background-color: transparent;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: #ccc;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.dropdown-item:active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dropdown-item.text-danger:hover, .dropdown-item.text-danger:focus {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+.dropdown-item.text-danger:active {
+    background-color: rgba(255, 0, 0, 0.15);
+}
