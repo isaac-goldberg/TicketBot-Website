@@ -3,9 +3,9 @@ html(lang="en")
         include ../includes/header.pug
 
 body(style="overflow-y: hidden")
-    .mr-3.mt-2
-        include ../includes/dropdown.pug
-    .jumbotron.text-center.bg-transparent
+    include ../includes/navbar.pug
+    
+    .text-center.bg-transparent(style="padding-top: 100px")
         h1.display-3(style={color: 'lightgray'}) 401
         p.lead(style={color: 'lightgray'}) You don't have authorization to view this page.
         a.btn.btn-light(href='/') Return Home

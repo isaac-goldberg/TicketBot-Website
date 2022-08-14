@@ -14,10 +14,10 @@ html(lang='en')
                 a.no-text-decor(href='/servers/' + guild.id)
                     if guild.icon
                         .icon.round.shadow.my-2(data-toggle='tooltip', data-placement='right', title=guild.name)
-                            img.round(alt=guild.name, src=guild.iconURL({ dynamic: true, size: 64 }), id='guild')
+                            img.round(alt=guild.name, src=utils.getGuildIcon(guild.id, guild.icon, 64), id='guild')
                     else        
                         .icon.round.shadow.my-2.bg-secondary(data-toggle='tooltip', data-placement='right', title=guild.name)
-                            p.text-center.abbr.no-text-decor #{guild.nameAcronym}
+                            p.text-center.abbr.no-text-decor #{utils.getNameAcronym(guild.name)}
             hr.hr
             a(href='/invite')
                 .icon.round.shadow.mt-2.bg-secondary(data-toggle='tooltip', data-placement='right', title="Add a server")

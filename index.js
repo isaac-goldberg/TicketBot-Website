@@ -6,7 +6,7 @@ const { PORT } = require("./globals.json");
 const app = express();
 
 // app modules
-const { awaitDiscordClient } = require("./modules/discord-client");
+const { awaitDatabase } = require("./modules/database-client");
 const middleware = require("./modules/middleware");
 
 // app routers
@@ -36,7 +36,7 @@ app.use("/",
 app.all('*', (req, res) => res.render('errors/404'));
 
 // waits for the discord client to start before starting the server
-awaitDiscordClient().then(() => {
+awaitDatabase().then(() => {
     app.listen(PORT, () => {
         console.log(`Server online on port ${process.env.PORT || PORT}`);
     });

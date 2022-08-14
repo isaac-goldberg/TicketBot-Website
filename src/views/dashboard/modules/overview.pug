@@ -8,8 +8,6 @@ section#overviewModule.module.container
             .col-lg-4.col-md-4.d-flex.justify-content-center
                 .rounded.m-3.p-3.width-fit-content.overview-item
                     p.uppercase(style={color: 'lightgray'})
-                        i.fas.fa-crown
-                        span.ml-1 Owner
-                    p.mb-0.word-break(style={color: 'white'}) #{owner.username}
-                        .text-muted ##{owner.discriminator}
-                    img.round.ownerImg(src=owner.displayAvatarURL({ dynamic: true, size: 64 }))
+                        span.ml-1 Server Details
+                    p #{guild.roles.length} Roles
+                    p #{guild.emojis.length} Custom Emojis

@@ -3,9 +3,9 @@ html(lang="en")
         include ../includes/header.pug
 
 body(style="overflow-y: hidden")
-    .mr-3.mt-2
-        include ../includes/dropdown.pug
-    .jumbotron.text-center.bg-transparent
+    include ../includes/navbar.pug
+
+    .text-center.bg-transparent(style="padding-top: 100px")
         h1.display-3(style={color: 'lightgray'}) 404
         p.lead(style={color: 'lightgray'}) The page you are trying to reach does not exist.
         a.btn.btn-light(href='/') Return Home

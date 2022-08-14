@@ -111,7 +111,10 @@ hr.hr {
 }
 .tabs a:not(.active):hover {
     color: white;
-    background-color: #32383f;
+    background-color: #2d3339;
+}
+.tabs a:not(.active):active {
+    background-color: #22262b;
 }
 .tabs .category {
     padding: 24px 0 4px 24px;
@@ -130,6 +133,9 @@ hr.hr {
 .tabs .active {
     color: white;
     background-color: #42484f;    
+}
+.tabs a.active:active {
+    background-color: #515961;
 }
 
 /* modules */

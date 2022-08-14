@@ -1,5 +1,6 @@
 const authClient = require('../modules/oauth-client');
-const botClient = require("./discord-client");
+const { databaseClient } = require('./database-client');
+const apiClient = require("./api-client");
 
 const sessionMap = new Map();
 
@@ -21,28 +22,26 @@ async function update(key) {
         .set(key, {
             authUser,
             guilds: await getBotManageableGuilds(authGuilds),
-            authGuilds: getUserManageableGuilds(authGuilds)
         });
 }
 
 async function getBotManageableGuilds(guilds) {
     const filteredGuilds = Array.from(guilds.values()).filter(g => g.isOwner || g.permissions.includes('MANAGE_GUILD'));
-    const existingGuilds = await botClient.getGuilds();
-    
-    const fetchedGuilds = [];
-    filteredGuilds.forEach(guild => {
-        var fetchedGuild = existingGuilds.get(guild.id);
+    const existingGuilds = await databaseClient.getMany("guilds");
 
-        if (fetchedGuild) fetchedGuilds.push(fetchedGuild);
-    })
+    const promiseArr = [];
+    filteredGuilds.forEach(async (guild) => {
+        var existingGuild = existingGuilds.find(g => guild.id === g.guildId);
+        if (existingGuild) {
+            promiseArr.push(new Promise(async (resolve, _reject) => {
+                var fetchedGuild = await apiClient.getGuild(guild.id);
+                resolve(fetchedGuild);
+            }));
+        }
+    });
 
-    return fetchedGuilds;
-}
-
-function getUserManageableGuilds(guilds) {
-    guilds = Array.from(guilds.values()).filter(g => g.isOwner || g.permissions.includes('MANAGE_GUILD'))
-
-    return guilds;
+    const results = await Promise.all(promiseArr);
+    return results;
 }
 
 module.exports = {
