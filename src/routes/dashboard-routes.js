@@ -1,5 +1,5 @@
 const express = require("express");
-const { databaseClient } = require("../../modules/database-client");
+const databaseClient = require("../../modules/database-client");
 const { validateGuild } = require("../../modules/middleware");
 const { DISCORD_CLIENT_PREFIX } = require("../../globals.json");
 

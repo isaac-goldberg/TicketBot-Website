@@ -1,5 +1,5 @@
 const authClient = require('../modules/oauth-client');
-const { databaseClient } = require('./database-client');
+const databaseClient = require('./database-client');
 const apiClient = require("./api-client");
 
 const sessionMap = new Map();

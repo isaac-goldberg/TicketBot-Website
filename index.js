@@ -36,8 +36,6 @@ app.use("/",
 app.all('*', (req, res) => res.render('errors/404'));
 
 // waits for the discord client to start before starting the server
-awaitDatabase().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server online on port ${process.env.PORT || PORT}`);
-    });
+app.listen(PORT, () => {
+    console.log(`Server online on port ${process.env.PORT || PORT}`);
 });
