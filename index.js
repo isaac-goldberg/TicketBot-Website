@@ -34,8 +34,6 @@ app.use("/",
 // redirects 404 errors
 app.all('*', (req, res) => res.render('errors/404'));
 
-console.log("----------------------\nHELLO WORLD INDEX\n----------------------------");
-
 // waits for the discord client to start before starting the server
 app.listen(PORT, () => {
     console.log(`Server online on port ${process.env.PORT || PORT}`);

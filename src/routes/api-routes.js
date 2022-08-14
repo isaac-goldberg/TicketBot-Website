@@ -1,7 +1,7 @@
 const express = require('express');
 const authClient = require("../../modules/oauth-client");
 const sessions = require("../../modules/sessions");
-const dev = require("../../dev.json");
+const dev = process.env.ENVIRONMENT === "prod" ? false : require("../../dev.json");
 const { DISCORD_CLIENT_ID } = require("../../globals.json");
 
 const router = express.Router();

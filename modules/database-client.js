@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-const dev = require("../dev.json");
+const dev = process.env.ENVIRONMENT ? false : require("../dev.json");
 
 class DatabaseClient extends MongoClient {
     constructor(mongoURI, options) {
@@ -105,7 +105,5 @@ class DatabaseClient extends MongoClient {
 
 const mongoURI = `mongodb+srv://${dev ? dev.MONGODB.USERNAME : process.env.MONGODB_USERNAME}:${dev ? dev.MONGODB.PASSWORD : process.env.MONGODB_PASSWORD}@ticketbot-database.6j5f4na.mongodb.net/database`
 const client = new DatabaseClient(mongoURI);
-
-console.log("----------------------\nHELLO WORLD DATABASE CLIENT\n----------------------------");
 
 module.exports = client;

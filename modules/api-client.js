@@ -1,4 +1,4 @@
-const dev = require("../dev.json");
+const dev = process.env.ENVIRONMENT === "prod" ? false : require("../dev.json");
 const phin = require("phin");
 
 class APIClient {
@@ -43,7 +43,5 @@ class APIClient {
 }
 
 const client = new APIClient(dev ? dev.DISCORD.TOKEN : process.env.DISCORD_CLIENT_TOKEN, dev ? dev.DISCORD.SECRET : process.env.DISCORD_CLIENT_SECRET);
-
-console.log("----------------------\nHELLO WORLD API CLIENT\n----------------------------");
 
 module.exports = client;

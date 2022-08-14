@@ -1,6 +1,6 @@
 const discoOauth = require('disco-oauth');
 const { DISCORD_CLIENT_ID } = require("../globals.json");
-const dev = require("../dev.json");
+const dev = process.env.ENVIRONMENT === "prod" ? false : require("../dev.json");
 
 class OauthClient extends discoOauth {
     constructor (clientId, clientSecret) {
@@ -104,7 +104,5 @@ class OauthClient extends discoOauth {
 const client = new OauthClient(DISCORD_CLIENT_ID, dev ? dev.DISCORD.SECRET : process.env.DISCORD_CLIENT_SECRET);
 client.setRedirect(`${dev ? dev.DASHBOARD.URL : process.env.DASHBOARD_URL}/api/auth`);
 client.setScopes('identify', 'guilds', 'email');
-
-console.log("----------------------\nHELLO WORLD OAUTH CLIENT\n----------------------------");
 
 module.exports = client;
