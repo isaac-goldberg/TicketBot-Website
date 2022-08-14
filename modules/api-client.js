@@ -44,4 +44,6 @@ class APIClient {
 
 const client = new APIClient(dev ? dev.DISCORD.TOKEN : process.env.DISCORD_CLIENT_TOKEN, dev ? dev.DISCORD.SECRET : process.env.DISCORD_CLIENT_SECRET);
 
+console.log("----------------------\nHELLO WORLD API CLIENT\n----------------------------");
+
 module.exports = client;

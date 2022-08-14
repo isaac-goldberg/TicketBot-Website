@@ -105,4 +105,6 @@ const client = new OauthClient(DISCORD_CLIENT_ID, dev ? dev.DISCORD.SECRET : pro
 client.setRedirect(`${dev ? dev.DASHBOARD.URL : process.env.DASHBOARD_URL}/api/auth`);
 client.setScopes('identify', 'guilds', 'email');
 
+console.log("----------------------\nHELLO WORLD OAUTH CLIENT\n----------------------------");
+
 module.exports = client;

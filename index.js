@@ -6,7 +6,6 @@ const { PORT } = require("./globals.json");
 const app = express();
 
 // app modules
-const { awaitDatabase } = require("./modules/database-client");
 const middleware = require("./modules/middleware");
 
 // app routers
@@ -34,6 +33,8 @@ app.use("/",
 
 // redirects 404 errors
 app.all('*', (req, res) => res.render('errors/404'));
+
+console.log("----------------------\nHELLO WORLD INDEX\n----------------------------");
 
 // waits for the discord client to start before starting the server
 app.listen(PORT, () => {
