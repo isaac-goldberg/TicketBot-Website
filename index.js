@@ -42,5 +42,7 @@ databaseClient.waitForReady().then(() => {
     // waits for the discord client to start before starting the server
     app.listen(PORT, () => {
         console.log(`Server online on port ${process.env.PORT || PORT}`);
-    }).on("error", (e) => { console.error(e) });
+    });
 });
+
+module.exports = app;
