@@ -12,6 +12,7 @@ class APIClient {
         this._baseUrl = "https://discord.com/api";
         this.token = token;
         this.secret = secret;
+        this.token_type = "Bot"
     }
 
     /**
@@ -24,7 +25,7 @@ class APIClient {
         const response = await phin({
             url,
             method: "GET",
-            headers: { Authorization: `Bot ${this.token}` },
+            headers: { Authorization: `${this.token_type} ${this.token}` },
             parse: "json"
         });
 

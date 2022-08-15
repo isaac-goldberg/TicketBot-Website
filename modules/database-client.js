@@ -6,14 +6,34 @@ class DatabaseClient extends MongoClient {
         super(mongoURI, options);
     
         this.database = "database";
+        this.ready = false;
     }
 
-    async establishConnection() {
+    /**
+     * Connects to the database and sets the client's 'ready' property to true
+     * 
+     * @returns {void}
+     */
+    async initConnection() {
         await this.connect();
+        this.ready = true;
+        console.log("MongoDB client is connected");
     }
 
-    async endConnection() {
-        await this.close();
+    /**
+     * Waits for the app to connect to the database
+     * 
+     * @returns {Promise<void>} The promise that resolves when the bot has connected to the database
+     */
+    async waitForReady() {
+        return new Promise((resolve, _reject) => {
+            var self = this;
+            function isReady() {
+                if (self.ready) resolve();
+                setTimeout(isReady, 50);
+            }
+            return isReady();
+        });
     }
 
     /**
@@ -24,11 +44,9 @@ class DatabaseClient extends MongoClient {
      * @returns {Promise<any>} The document found
      */
     async get(collection, filter) {
-        await this.establishConnection();
         if (typeof filter != "object") throw `The 'filter' parameter must be an object. Received ${typeof filter}`;
 
         const results = await this.db(this.database).collection(collection).findOne(filter);
-        await this.endConnection();
         return results;
     }
 
@@ -40,11 +58,9 @@ class DatabaseClient extends MongoClient {
      * @returns {Promise<Array>} An array of the documents matching the filter
      */
     async getMany(collection, data = {}) {
-        await this.establishConnection();
         if (typeof data != "object") throw `The 'data' parameter must be an object. Received ${typeof data}`;
 
         const results = await (await this.db(this.database).collection(collection).find(data)).toArray();
-        await this.endConnection();
         return results;
     }
 
@@ -56,11 +72,9 @@ class DatabaseClient extends MongoClient {
      * @returns {Promise<any>} The document that was inserted
      */
     async set(collection, data) {
-        await this.establishConnection();
         if (typeof data != "object") throw `The 'data' parameter must be an object. Received ${typeof data}`;
 
         const results = await this.db(this.database).collection(collection).insertOne(data);
-        await this.endConnection();
         return results;
     }
 
@@ -72,11 +86,9 @@ class DatabaseClient extends MongoClient {
      * @returns {Promise<any>} The document that was deleted
      */
     async delete(collection, filter) {
-        await this.establishConnection();
         if (typeof filter != "object") throw `The 'filter' parameter must be an object. Received ${typeof filter}`;
 
         const results = await this.db(this.database).collection(collection).deleteOne(filter);
-        await this.endConnection();
         return results;
     }
 
@@ -89,7 +101,6 @@ class DatabaseClient extends MongoClient {
      * @returns {Promise<any>} The document inserted or updated
      */
     async upsert(collection, filter, data) {
-        await this.establishConnection();
         if (typeof filter != "object") throw `The 'filter' parameter must be an object. Received ${typeof filter}`;
         if (typeof data != "object") throw `The 'data' parameter must be an object. Received ${typeof data}`;
 
@@ -98,12 +109,13 @@ class DatabaseClient extends MongoClient {
             { $set: data },
             { upsert: true }
         );
-        await this.endConnection();
         return results;
     }
 }
 
 const mongoURI = `mongodb+srv://${dev ? dev.MONGODB.USERNAME : process.env.MONGODB_USERNAME}:${dev ? dev.MONGODB.PASSWORD : process.env.MONGODB_PASSWORD}@ticketbot-database.6j5f4na.mongodb.net/database`
 const client = new DatabaseClient(mongoURI);
+
+client.initConnection();
 
 module.exports = client;
