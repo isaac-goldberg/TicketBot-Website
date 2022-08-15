@@ -7,7 +7,6 @@ const apiPassword = process.env.ENVIRONMENT === "prod" ? process.env.API_PASSWOR
 const baseURL = "/api";
 
 router.post(`${baseURL}/commands/:commandName`, async (req, res) => {
-    console.log(req.body, JSON.stringify(req.body))
     await phin({
         url: `${botAPI}/commands/${req.params.commandName}`,
         method: "POST",
