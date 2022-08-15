@@ -27,7 +27,7 @@ class APIClient {
             method: "GET",
             headers: { Authorization: `${this.token_type} ${this.token}` },
             parse: "json"
-        });
+        }).catch(console.error);
 
         return response.body;
     }

@@ -15,7 +15,7 @@ router.post(`${baseURL}/commands/:commandName`, async (req, res) => {
             "Content-Type": "application/json",
         },
         data: req.body,
-        parse: "json",
+        parse: "string",
     }).catch(console.error);
 
     res.sendStatus(200);
