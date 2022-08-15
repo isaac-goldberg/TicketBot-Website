@@ -1,5 +1,14 @@
 :root {
     --theme-primary: #CCC;
+    --background-primary: #343A40;
+    --background-secondary: #373d42;
+    --background-tertiary: #41474d;
+    
+    --text-primary: #ccc;
+
+    --color-green: #0ebe46;
+    --color-red: #ED4245;
+    --color-yellow: #FEE75C;
 
     --transition-fast: 0.1s ease;
     --transition-md: 0.15s ease;
@@ -7,5 +16,5 @@
 }
 
 p {
-    color: #ccc;
+    color: var(--text-primary);
 }

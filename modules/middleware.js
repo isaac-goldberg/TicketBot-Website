@@ -4,9 +4,8 @@ module.exports.updateGuilds = async (req, res, next) => {
     try {
         const key = res.cookies.get('key');
         if (key) {
-            const { guilds, userGuilds } = await sessions.get(key);
+            const { guilds } = await sessions.get(key);
             res.locals.guilds = guilds;
-            res.locals.userGuilds = userGuilds;
         }
     } catch (e) {
         console.error(e);

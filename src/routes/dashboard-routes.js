@@ -10,15 +10,17 @@ router.use((req, res, next) => {
     next();
 });
 
+const passParams = (req, res, next) => { res.locals.reqParams = req.params; next() };
+
 router.get("/servers", (req, res) => res.redirect("/dashboard"));
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', passParams, (req, res) => {
     res.render('dashboard/index', {
         subtitle: 'Dashboard',
     });
 });
-router.get('/servers/:id', async (req, res) => res.redirect(`${req.originalUrl}/overview`));
 
-router.get('/servers/:id/:module', validateGuild, async (req, res) => {
+router.get('/servers/:id', async (req, res) => res.redirect(`${req.originalUrl}/overview`));
+router.get('/servers/:id/:module', passParams, validateGuild, async (req, res) => {
     const guild = res.locals.guild;
 
     if (!guild) {

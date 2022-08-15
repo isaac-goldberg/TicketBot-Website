@@ -6,12 +6,12 @@ html(lang='en')
         script(src='js/sidebar.js', defer)
     body
         #sidebar.float-left
-            a(href='/dashboard')
+            a(href='/dashboard', class=(!reqParams.id ? "selected" : ""))
                 .icon.round.shadow
                     img.round(alt=user.username, src=user.avatarUrl(64))
             hr.hr
             each guild in guilds
-                a.no-text-decor(href='/servers/' + guild.id)
+                a.no-text-decor(href='/servers/' + guild.id, class=(guild.id === reqParams.id ? "selected" : ""))
                     if guild.icon
                         .icon.round.shadow.my-2(data-toggle='tooltip', data-placement='right', title=guild.name)
                             img.round(alt=guild.name, src=utils.getGuildIcon(guild.id, guild.icon, 64), id='guild')

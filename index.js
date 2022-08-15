@@ -11,13 +11,15 @@ const middleware = require("./modules/middleware");
 
 // app routers
 const rootRoutes = require("./src/routes/root-routes");
-const apiRoutes = require("./src/routes/api-routes");
+const authRoutes = require("./src/routes/auth-routes");
 const dashboardRoutes = require("./src/routes/dashboard-routes");
+const apiRoutes = require("./src/routes/api-routes");
 
 // app settings
 app.set("views", `${__dirname}/src/views`);
 app.set("view engine", "pug");
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookies.express('a', 'b', 'c'));
 
@@ -28,8 +30,8 @@ app.locals.basedir = `${__dirname}/src/assets`;
 // use routers
 app.use("/",
     middleware.updateUser, rootRoutes,
-    apiRoutes,
-    middleware.validateUser, middleware.updateGuilds, dashboardRoutes
+    authRoutes,
+    middleware.validateUser, middleware.updateGuilds, apiRoutes, dashboardRoutes
 );
 
 // redirects 404 errors
@@ -40,5 +42,5 @@ databaseClient.waitForReady().then(() => {
     // waits for the discord client to start before starting the server
     app.listen(PORT, () => {
         console.log(`Server online on port ${process.env.PORT || PORT}`);
-    });
+    }).on("error", (e) => { console.error(e) });
 });

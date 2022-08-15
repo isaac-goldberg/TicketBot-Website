@@ -3,7 +3,7 @@
 body {
     overflow-x: hidden;
     overflow-y: scroll;
-    background-color: #343A40;
+    background-color: var(--background-primary);
     font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
 }
 
@@ -52,4 +52,33 @@ div.tooltip[role="tooltip"] {
 
 ::placeholder {
     user-select: none;
+}
+
+/* jBox custom css */
+.jBox-container {
+    border-radius: 15px !important;
+    background-color: none;
+}
+
+.jBox-content {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+}
+
+.jBox-Confirm-button-submit {
+    background-color: var(--color-green) !important;
+    color: #222 !important;
+}
+.jBox-Confirm-button-cancel {
+    background-color: var(--background-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+.jBox-Confirm-button {
+    transition: var(--transition-fast);
+}
+.jBox-Confirm-button:hover {
+    filter: brightness(0.8);
+}
+.jBox-Confirm-button:active {
+    filter: brightness(0.6);
 }

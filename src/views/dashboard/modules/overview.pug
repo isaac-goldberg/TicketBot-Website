@@ -1,12 +1,12 @@
 link(rel='stylesheet', href='/css/overview.css')
-section#overviewModule.module.container
-    .jumbotron.pb-0.bg-transparent(style={color: 'white'})
+section#overviewModule.module.container(style="min-width: 500px")
+    .jumbotron.pb-0.bg-transparent(style="color: white")
         h1.display-4.text-center Overview
         p.text-center #{guild.memberCount} Members
     .form-group.mt-5
         .row.text-center
-            .col-lg-4.col-md-4.d-flex.justify-content-center
-                .rounded.m-3.p-3.width-fit-content.overview-item
+            .d-flex.justify-content-center
+                .rounded.p-3.overview-item
                     p.uppercase(style={color: 'lightgray'})
                         span.ml-1 Server Details
                     p #{guild.roles.length} Roles

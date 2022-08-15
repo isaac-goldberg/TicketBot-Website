@@ -3,7 +3,7 @@ link(rel="stylesheet", href="/css/navbar.css")
     if user
         .dropdown
             .dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false', style={color: 'lightgray'})
-                img.user-avatar.round(src=user.avatarUrl(32), style='max-length: 32px; max-width: 32px;')
+                img.user-avatar.round(src=user.avatarUrl(32), style='max-width: 32px;')
                 span.pl-2(style={color: 'lightgray'}) 
                     span.pr-1 #{user.username}
             .dropdown-menu.dropdown-menu-right.shadow-lg.rounded

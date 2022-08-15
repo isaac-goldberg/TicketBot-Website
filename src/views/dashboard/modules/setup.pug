@@ -1,5 +1,6 @@
-link(rel='stylesheet', href='/css/overview.css')
-section#setupModule.module.container
-    .jumbotron.pb-0.bg-transparent(style={color: 'white'})
-        h1.display-6.text-center Set up Ticket Category
-    p.text-center Coming soon!
+script(src="/js/setup.js")
+section#setupModule.module.container.mt-5
+    h1.text-center(style="color: white") Set up Ticket Category
+    .text-center
+        .btn.btn-warning(type="button", onclick=`setup("${reqParams.id}", "${user.id}")`, data-confirm="Notice: Confirming this setup will create a Ticket Support role and a TICKET category (unless either of them already exist) in your server.")
+            | Setup

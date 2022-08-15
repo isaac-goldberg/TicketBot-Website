@@ -1,57 +1,24 @@
-const express = require('express');
-const authClient = require("../../modules/oauth-client");
-const sessions = require("../../modules/sessions");
-const dev = process.env.ENVIRONMENT === "prod" ? false : require("../../dev.json");
-const { DISCORD_CLIENT_ID } = require("../../globals.json");
-
+const express = require("express");
+const phin = require("phin");
 const router = express.Router();
 
-const routerBaseURL = "/api";
-const discordRedirectBaseURL = dev ? dev.DASHBOARD.URL : process.env.DASHBOARD_URL;
+const botAPI = process.env.ENVIRONMENT === "prod" ? "https://tickbot2.herokuapp.com/api" : "http://localhost:3000/api";
+const apiPassword = process.env.ENVIRONMENT === "prod" ? process.env.API_PASSWORD : require("../../dev.json").API.PASSWORD;
+const baseURL = "/api";
 
-router.get("/invite", (req, res) => res.redirect(`${routerBaseURL}/invite`));
-router.get(`${routerBaseURL}/invite`, (req, res) => {
-    const redirectURI = encodeURIComponent(`${discordRedirectBaseURL}/api/auth-guild`);
+router.post(`${baseURL}/commands/:commandName`, async (req, res) => {
+    await phin({
+        url: `${botAPI}/commands/${req.params.commandName}`,
+        method: "POST",
+        headers: {
+            Authorization: apiPassword,
+            "Content-Type": "application/json",
+        },
+        data: req.body,
+        parse: "json",
+    }).catch(console.error);
 
-    res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${redirectURI}&permissions=2013654263&scope=bot`);
-});
-
-router.get("/login", (req, res) => res.redirect(`${routerBaseURL}/login`));
-router.get(`${routerBaseURL}/login`, (req, res) => {
-    const redirectURI = encodeURIComponent(`${discordRedirectBaseURL}/api/auth`);
-
-    res.redirect(`https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${redirectURI}&response_type=code&scope=identify guilds&prompt=none`);
-});
-
-router.get(`${routerBaseURL}/auth-guild`, async (req, res) => {
-    try {
-        const key = res.cookies.get('key');
-        await sessions.update(key);
-    } finally {
-        res.redirect('/dashboard');
-    }
-    res.redirect('back');
-});
-
-router.get(`${routerBaseURL}/auth`, async (req, res) => {
-    try {
-        const code = req.query.code;
-        const key = await authClient.queueGetAccess(code);
-
-        res.cookies.set('key', key);
-        
-        setTimeout(() => res.redirect("/dashboard"), 250);
-    } catch (e) {
-        console.error(e);
-        res.redirect('/');
-    }
-});
-
-router.get("/logout", (req, res) => res.redirect(`${routerBaseURL}/logout`));
-router.get(`${routerBaseURL}/logout`, (req, res) => {
-    res.cookies.set('key', '');
-
-    res.redirect('/');
+    res.sendStatus(200);
 });
 
 module.exports = router;
