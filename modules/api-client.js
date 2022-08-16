@@ -16,20 +16,26 @@ class APIClient {
     }
 
     /**
-     * Sends an API request.
+     * Sends an API request and handles rate limits.
      * 
      * @param {string} url The url to make the request to. 
      * @returns {Promise<any>} The resource fetched.
      */
     async sendRequest(url) {
-        const response = await phin({
-            url,
-            method: "GET",
-            headers: { Authorization: `${this.token_type} ${this.token}` },
-            parse: "json"
-        }).catch(console.error);
-
-        return response.body;
+        return new Promise((resolve, _reject) => {
+            phin({
+                url,
+                method: "GET",
+                headers: { Authorization: `${this.token_type} ${this.token}` },
+                parse: "json"
+            }).then((data) => {
+                resolve(data.body);
+            }).catch(() => {
+                setTimeout(async () => {
+                    resolve(await this.sendRequest(url))
+                }, 100);
+            });
+        });
     }
 
     /**

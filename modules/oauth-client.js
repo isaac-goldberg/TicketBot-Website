@@ -38,7 +38,7 @@ class OauthClient extends discoOauth {
     }
 
     /**
-     * Calculates the amount of time (in milliseconds) to wait before making the next request
+     * A promise that resolves when the application has waiting long enough before making the next request
      * 
      * @returns {Promise<void>}
      */
