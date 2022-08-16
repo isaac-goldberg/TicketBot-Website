@@ -46,7 +46,12 @@ class DatabaseClient extends MongoClient {
     async get(collection, filter) {
         if (typeof filter != "object") throw `The 'filter' parameter must be an object. Received ${typeof filter}`;
 
-        const results = await this.db(this.database).collection(collection).findOne(filter);
+        var results;
+        try {
+            results = await this.db(this.database).collection(collection).findOne(filter);
+        } catch (e) {
+            console.error(e);
+        }
         return results;
     }
 
@@ -60,8 +65,14 @@ class DatabaseClient extends MongoClient {
     async getMany(collection, data = {}) {
         if (typeof data != "object") throw `The 'data' parameter must be an object. Received ${typeof data}`;
 
-        const results = await (await this.db(this.database).collection(collection).find(data)).toArray();
-        return results;
+        var results;
+        try {
+            results = this.db(this.database).collection(collection).find(data);
+        } catch (e) {
+            console.error(e);
+        }
+        const resultsArr = await results.toArray().catch(console.error);
+        return resultsArr;
     }
 
     /**
@@ -74,7 +85,7 @@ class DatabaseClient extends MongoClient {
     async set(collection, data) {
         if (typeof data != "object") throw `The 'data' parameter must be an object. Received ${typeof data}`;
 
-        const results = await this.db(this.database).collection(collection).insertOne(data);
+        const results = await this.db(this.database).collection(collection).insertOne(data).catch(console.error);
         return results;
     }
 
@@ -88,7 +99,7 @@ class DatabaseClient extends MongoClient {
     async delete(collection, filter) {
         if (typeof filter != "object") throw `The 'filter' parameter must be an object. Received ${typeof filter}`;
 
-        const results = await this.db(this.database).collection(collection).deleteOne(filter);
+        const results = await this.db(this.database).collection(collection).deleteOne(filter).catch(console.error);
         return results;
     }
 
@@ -108,7 +119,7 @@ class DatabaseClient extends MongoClient {
             filter,
             { $set: data },
             { upsert: true }
-        );
+        ).catch(console.error);
         return results;
     }
 }
