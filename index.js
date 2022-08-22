@@ -13,7 +13,6 @@ const middleware = require("./modules/middleware");
 const rootRoutes = require("./src/routes/root-routes");
 const authRoutes = require("./src/routes/auth-routes");
 const dashboardRoutes = require("./src/routes/dashboard-routes");
-const apiRoutes = require("./src/routes/api-routes");
 
 // app settings
 app.set("views", `${__dirname}/src/views`);
@@ -31,7 +30,7 @@ app.locals.basedir = `${__dirname}/src/assets`;
 app.use("/",
     middleware.updateUser, rootRoutes,
     authRoutes,
-    middleware.validateUser, middleware.updateGuilds, apiRoutes, dashboardRoutes
+    middleware.validateUser, middleware.updateGuilds, dashboardRoutes
 );
 
 // redirects 404 errors

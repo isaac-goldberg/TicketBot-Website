@@ -15,7 +15,7 @@ class DatabaseClient extends MongoClient {
      * @returns {void}
      */
     async initConnection() {
-        await this.connect();
+        await this.connect().catch(console.error);
         this.ready = true;
         console.log("MongoDB client is connected");
     }
@@ -124,7 +124,7 @@ class DatabaseClient extends MongoClient {
     }
 }
 
-const mongoURI = `mongodb+srv://${dev ? dev.MONGODB.USERNAME : process.env.MONGODB_USERNAME}:${dev ? dev.MONGODB.PASSWORD : process.env.MONGODB_PASSWORD}@ticketbot-database.6j5f4na.mongodb.net/database`
+const mongoURI = `mongodb+srv://${dev ? dev.MONGODB.USERNAME : process.env.MONGODB_USERNAME}:${dev ? dev.MONGODB.PASSWORD : process.env.MONGODB_PASSWORD}@ticketbot-database.6j5f4na.mongodb.net/database`;
 const client = new DatabaseClient(mongoURI);
 
 client.initConnection();
