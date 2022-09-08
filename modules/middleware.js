@@ -18,15 +18,18 @@ module.exports.updateUser = async (req, res, next) => {
     try {
         const key = res.cookies.get('key');
         if (key) {
-            const { authUser } = await sessions.get(key);
-            res.locals.user = authUser;
+            const data = await sessions.get(key);
+            if (data && data.authUser) {
+                res.locals.user = data.authUser;
+            } else {
+                res.cookies.set("key", "");
+            }
         }
     } catch(e) {
         console.error(e);
     } finally {
         return next();
     }
-    
 };
 
 module.exports.validateGuild = async (req, res, next) => {

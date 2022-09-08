@@ -12,12 +12,13 @@ async function create(key) {
     setTimeout(() => sessionMap.delete(key), 30_000);
     await update(key);
 
-    return sessionMap.get(key);
+    return sessionMap.get(key) || null;
 }
 
 async function update(key) {
     let authGuilds = await authClient.queueGetGuilds(key);
     let authUser = await authClient.queueGetUser(key);
+    if (!authGuilds || !authUser) return false;
     return sessionMap
         .set(key, {
             authUser,

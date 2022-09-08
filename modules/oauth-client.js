@@ -23,15 +23,20 @@ class OauthClient extends discoOauth {
      * 
      * @param {string} authKey The authentication key or token to provide the callback function with
      * @param {string} callbackName The name of the function to get data from
+     * @param {number} [retries]
      * @returns {Promise<any>}
      */
-    async handleRequest(authKey, callbackName) {
+    async handleRequest(authKey, callbackName, retries = 0) {
+        const MAX_RETRIES = 10;
         return new Promise((resolve, _reject) => {
             this[callbackName](authKey).then((data) => {
                 resolve(data);
-            }).catch(() => {
+            }).catch((err) => {
+                console.log(retries, retries >= MAX_RETRIES)
+                console.error(err);
                 setTimeout(async () => {
-                    resolve(await this.handleRequest(authKey, callbackName));
+                    if (retries >= MAX_RETRIES) return resolve(false);
+                    return resolve(await this.handleRequest(authKey, callbackName, retries + 1));
                 }, 100);
             });
         });
